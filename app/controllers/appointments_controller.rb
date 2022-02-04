@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+    before_action :set_entry, only: [:show, :update, :destroy]
     rescue_from Exception do |e|
         render json: { error: e }, status: :not_found
     end 
@@ -12,28 +13,30 @@ class AppointmentsController < ApplicationController
     end
 
     def show
-        render json: Appointment.find(params[:id])
+        render json: @appointment
     end
 
     def update
-        appointmentToUpdate = Appointment.find(params[:id])
-        if appointmentToUpdate.update(entry_params)
-            render json: appointmentToUpdate
+        if @appointment.update(entry_params)
+            render json: @appointment
         else 
             render json: { error: "Failed to update appointment" }, status: :unprocessable_entity
         end
     end
 
     def destroy
-        appointmentToDestroy = Appointment.find(params[:id])
-        if appointmentToDestroy.destroy
-            render status: :ok
+        if @appointment.destroy
+            render status: :no_content
         else 
             render json: { error: "Failed to destroy appointment" }, status: :unprocessable_entity
         end
     end
 
     private
+
+    def set_entry
+        @appointment = Appointment.find(params[:id])
+    end
 
     def entry_params
         params.permit(:date, :provider_id, :patient)
