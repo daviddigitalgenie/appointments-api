@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
     rescue_from Exception do |e|
-        render json: { error: e }, status: 404
+        render json: { error: e }, status: :not_found
     end 
 
     def index
@@ -8,7 +8,7 @@ class AppointmentsController < ApplicationController
     end
 
     def create
-        Appointment.create(entry_params)
+        render json: Appointment.create(entry_params), status: :created
     end
 
     def show
@@ -17,14 +17,22 @@ class AppointmentsController < ApplicationController
 
     def update
         appointmentToUpdate = Appointment.find(params[:id])
-        appointmentToUpdate.update(entry_params)
+        if appointmentToUpdate.update(entry_params)
+            render json: appointmentToUpdate
+        else 
+            render json: { error: "Failed to update appointment" }, status: :unprocessable_entity
+        end
     end
 
     def destroy
         appointmentToDestroy = Appointment.find(params[:id])
-        appointmentToDestroy.destroy()
+        if appointmentToDestroy.destroy
+            render status: :ok
+        else 
+            render json: { error: "Failed to destroy appointment" }, status: :unprocessable_entity
+        end
     end
-    
+
     private
 
     def entry_params
