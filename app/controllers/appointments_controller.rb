@@ -24,7 +24,7 @@ class AppointmentsController < ApplicationController
         appointmentToDestroy = Appointment.find(params[:id])
         appointmentToDestroy.destroy()
     end
-    # CCD2-AB5B
+    
     private
 
     def entry_params
