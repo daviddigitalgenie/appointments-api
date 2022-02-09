@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+    before_action :authenticate
     before_action :set_entry, only: [:show, :update, :destroy]
     rescue_from Exception do |e|
         render json: { error: e }, status: :not_found

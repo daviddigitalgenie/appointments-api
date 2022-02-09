@@ -22,5 +22,14 @@ rails db:seed
 // go to localhost:4000/rails/info/routes
 // update controllers to return json
 // update routes.rb scope to be /api/v1
+// uncomment bcrypt
+bundle install
+bundle add jwt
+rails g resource User email password_digest //password_digest is one way encryption via bcrypt.
+rails db:migrate
+//update user model to "has_secure_password"
+//go to rails console and add a user
+
+//User.first.authenticate("password")
 ```
 
