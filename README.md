@@ -31,5 +31,12 @@ rails db:migrate
 //go to rails console and add a user
 
 //User.first.authenticate("password")
+bundle add rolify
+rails g rolify Role User //assuming user table is called user 
+//add resourcify to models
+//then go to rails console and you can check this with
+// User.first.add_role :owner, Appointment.create(date:"2024-03-02", patient: "Arnie", provider_id: 2)
+
+
 ```
 
