@@ -39,6 +39,9 @@ rails g rolify Role User //assuming user table is called user
 // Don't actually need rolify, can just add use relates to appointments 
 // and then the below just to get the scoped appointments
 // current_user = User.find_by email: @email 
-
+// ensure email is unqique
 ```
 
+## Further reading
+
+https://thinkster.io/tutorials/rails-json-api/setting-up-users-and-authentication-for-our-api 
