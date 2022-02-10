@@ -6,7 +6,6 @@ class ApplicationController < ActionController::API
             token = request.headers["Authorization"].split(' ')[1]
             payload = JWT.decode(token, @@jwt_secret, true, { algorithm: 'HS512' })[0]
             @email = payload["email"]
-            @current_user_id = payload['id']
         rescue
             render json: { error: "Invalid token" }, status: :unauthorized
         end

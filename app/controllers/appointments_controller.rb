@@ -6,8 +6,8 @@ class AppointmentsController < ApplicationController
     end 
 
     def index
-        current_user = User.find(@current_user_id)
-        render json: @current_user.appointments
+        current_user = User.find_by email: @email
+        render json: current_user.appointments
     end
 
     def create
